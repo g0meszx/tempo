@@ -12,10 +12,23 @@
         <img src="weather-icon.png" alt="Ícone de Clima">
         <h1>Consulta Climática</h1>
 
+        
         <form id="weatherForm">
-            <input type="text" id="city" placeholder="Digite o nome da cidade">
-            <input type="text" id="zip" placeholder="Digite o CEP">
-            <button type="submit">Consultar</button>
+                <div>
+                    <label>
+                        <input type="radio" name="queryType" value="city" id="cityRadio" checked>
+                        Nome da Cidade
+                    </label>
+                    <label>
+                        <input type="radio" name="queryType" value="zip" id="zipRadio">
+                        CEP
+                    </label>
+                </div>
+                <div>
+                    <input type="text" id="city" placeholder="Digite o nome da cidade">
+                    <input type="text" id="zip" placeholder="Digite o CEP" disabled>
+                </div>
+                <button type="submit">Consultar</button>
         </form>
 
         <div class="result" id="result"></div>

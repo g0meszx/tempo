@@ -1,15 +1,23 @@
 document.getElementById('weatherForm').addEventListener('submit', async function(event) {
     event.preventDefault();
 
+    const cityRadio = document.getElementById('cityRadio').checked;
+    const zipRadio = document.getElementById('zipRadio').checked;
+
     const city = document.getElementById('city').value.trim();
     const zip = document.getElementById('zip').value.trim();
 
-    if (!city && !zip) {
-        document.getElementById('result').innerHTML = `<p style="color: red;">Por favor, preencha o nome da cidade ou o CEP.</p>`;
+    if (cityRadio && !city) {
+        document.getElementById('result').innerHTML = `<p style="color: red;">Por favor, preencha o nome da cidade.</p>`;
         return;
     }
 
-    const query = city || zip;
+    if (zipRadio && !zip) {
+        document.getElementById('result').innerHTML = `<p style="color: red;">Por favor, preencha o CEP.</p>`;
+        return;
+    }
+
+    const query = cityRadio ? city : zip;
     const url = `https://wttr.in/${query}?format=j1`;
 
     try {
@@ -32,4 +40,17 @@ document.getElementById('weatherForm').addEventListener('submit', async function
     } catch (error) {
         document.getElementById('result').innerHTML = `<p style="color: red;">${error.message}</p>`;
     }
+});
+
+// Alternar entre os campos de entrada com base na seleção do botão de rádio
+document.getElementById('cityRadio').addEventListener('change', function() 
+{
+    document.getElementById('city').disabled = false;
+    document.getElementById('zip').disabled = true;
+});
+
+document.getElementById('zipRadio').addEventListener('change', function() 
+{
+    document.getElementById('city').disabled = true;
+    document.getElementById('zip').disabled = false;
 });
