@@ -30,10 +30,28 @@ document.getElementById('weatherForm').addEventListener('submit', async function
         const currentCondition = data.current_condition[0];
         const resultDiv = document.getElementById('result');
 
+
+        const weatherTranslations = {
+            "Sunny": "Ensolarado",
+            "Partly cloudy": "Parcialmente nublado",
+            "Cloudy": "Nublado",
+            "Overcast": "Encoberto",
+            "Rain": "Chuva",
+            "Snow": "Neve",
+            "Thunderstorm": "Trovoada",
+            "Mist": "Névoa",
+            "Fog": "Nevoeiro",
+            "Patchy rain nearby": "Chuva leve nas proximidades",
+            "Clear": "Limpo"
+        };
+
+        const weatherDescription = currentCondition.weatherDesc[0].value;
+        const translatedWeather = weatherTranslations[weatherDescription] || weatherDescription;
+
         resultDiv.innerHTML = `
             <h2>Clima Atual</h2>
             <p><strong>Temperatura:</strong> ${currentCondition.temp_C}°C</p>
-            <p><strong>Clima:</strong> ${currentCondition.weatherDesc[0].value}</p>
+            <p><strong>Clima:</strong> ${translatedWeather}</p>
             <p><strong>Umidade:</strong> ${currentCondition.humidity}%</p>
             <p><strong>Vento:</strong> ${currentCondition.windspeedKmph} km/h</p>
         `;
@@ -42,7 +60,7 @@ document.getElementById('weatherForm').addEventListener('submit', async function
     }
 });
 
-// Alternar entre os campos de entrada com base na seleção do botão de rádio
+
 document.getElementById('cityRadio').addEventListener('change', function() 
 {
     document.getElementById('city').disabled = false;
